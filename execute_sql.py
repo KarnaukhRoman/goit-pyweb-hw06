@@ -2,6 +2,7 @@ import logging
 
 from psycopg2 import DatabaseError
 from connection import get_db_connection
+from tabulate import tabulate
 
 sql1 = """ 
 SELECT s.name , ROUND(AVG(g.score),2) as avg_score from students s
@@ -106,29 +107,53 @@ def execute_query(sql, set_params:tuple):
     finally:
         cur.close()
 
+columns = ['Name Student', 'Average Score']
 print("1. 5 студентів із найбільшим середнім балом з усіх предметів")
-print(execute_query(sql1,()))
+print(tabulate(execute_query(sql1,()), headers=columns, tablefmt='grid'))
+print()
+columns =['Name Student', 'Subject', 'Average Score']
 print("2. Студент із найвищим середнім балом з певного предмета")
-print(execute_query(sql2,(3,)))
+print(tabulate(execute_query(sql2,(3,)), headers=columns, tablefmt='grid'))
+print()
+columns = ['Group Name', 'Subjects', 'Average Score']
 print("3. Cередній бал у групах з певного предмета.")
-print(execute_query(sql3,(4,)))
+print(tabulate(execute_query(sql3,(4,)), headers=columns, tablefmt='grid'))
+print()
+columns = ['Average Score']
 print("4. Cередній бал на потоці (по всій таблиці оцінок)")
-print(execute_query(sql4,()))
+print(tabulate(execute_query(sql4,()), headers=columns, tablefmt='grid'))
+print()
+columns = ['Course Name']
 print("5. Які курси читає певний викладач")
-print(execute_query(sql5,(4,)))
+print(tabulate(execute_query(sql5,(4,)),headers=columns, tablefmt='grid'))
+print()
+columns = ['Name Student', 'Group Name']
 print("6. Cписок студентів у певній групі")
-print(execute_query(sql6,(3,)))
+print(tabulate(execute_query(sql6,(3,)),headers=columns, tablefmt='grid'))
+print()
+columns = ['Name Student', 'Group Name', 'Score', 'Subject']
 print("7. Оцінки студентів у окремій групі з певного предмета")
-print(execute_query(sql7,(3,6,)))
+print(tabulate(execute_query(sql7,(3,6,)),headers=columns, tablefmt='grid'))
+print()
+columns = ['Name Prof', 'Subject', 'Average Score']
 print("8. Cередній бал, який ставить певний викладач зі своїх предметів.")
-print(execute_query(sql8,(3,)))
+print(tabulate(execute_query(sql8,(3,)), headers=columns, tablefmt='grid'))
+print()
+columns = ['Name Student', 'Subject']
 print("9. Cписок курсів, які відвідує студент.")
-print(execute_query(sql9,(13,)))
+print(tabulate(execute_query(sql9,(13,)), headers=columns, tablefmt='grid'))
+print()
+columns = ['Name Student', 'Subject', 'Name Prof']
 print("10. Список курсів, які певному студенту читає певний викладач")
-print(execute_query(sql10,(14,1,)))
+print(tabulate(execute_query(sql10,(14,1,)), headers=columns, tablefmt='grid'))
+print()
+columns = ['Average Score']
 print("***11. Середній бал, який певний викладач ставить певному студентові")
-print(execute_query(sql11,(14,1,)))
+print(tabulate(execute_query(sql11,(14,1,)), headers=columns, tablefmt='grid'))
+print()
+columns = ['Name Student', 'Score', 'Group Name']
 print("***12. Оцінки студентів у певній групі з певного предмета на останньому занятті")
-print(execute_query(sql12,(1,8,8,)))
+print(tabulate(execute_query(sql12,(1,8,8,)), headers=columns, tablefmt='grid'))
+
 
 
