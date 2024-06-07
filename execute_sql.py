@@ -17,7 +17,8 @@ JOIN subjects ON grades.subject_id = subjects.id
 WHERE subjects.id  = '%s'
 GROUP BY table_students.id, table_students.name, subjects.name_subject 
 ORDER BY average_score DESC
-LIMIT 1;"""
+LIMIT 1;
+"""
 
 sql3 = """
 SELECT table_groups.name_group, subjects.name_subject, ROUND(AVG(grades.score),2) AS average_score FROM groups AS table_groups
@@ -50,7 +51,7 @@ JOIN "groups" ON table_students.group_id = "groups".id
 JOIN grades ON table_students.id = grades.student_id
 JOIN subjects ON grades.subject_id = subjects.id  
 WHERE "groups".id = '%s' AND subjects.id  = '%s'
-ORDER BY "groups".name_group, table_students."name" ;
+ORDER BY "groups".name_group, table_students."name";
 """
 sql8 = """
 SELECT table_professors.name_prof, subjects.name_subject, ROUND(AVG(grades.score),2) AS average_score FROM professors AS table_professors

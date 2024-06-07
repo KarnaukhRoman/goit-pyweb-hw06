@@ -1,5 +1,5 @@
-SELECT s.name, subj.name_subject, p.name_prof  FROM students s
-JOIN grades gr ON s.id = gr.student_id
-JOIN subjects subj ON gr.subject_id = subj.id
-JOIN professors p ON p.id = subj.prof_id
-WHERE s."name" ='певний студент' AND p.name_prof ='певний викладач'
+SELECT table_students.name AS name_student, subjects.name_subject, professors.name_prof  FROM students AS table_students
+JOIN grades ON grades.student_id = table_students.id
+JOIN subjects ON subjects.id = grades.subject_id
+JOIN professors ON professors.id = subjects.prof_id
+WHERE table_students.id  ='14' AND professors.id ='1';
