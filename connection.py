@@ -21,6 +21,8 @@ def get_db_connection():
     )
     try:
         yield conn
-    finally:
+    except Exception as e:
         conn.rollback()
+        raise e
+    finally:
         conn.close()
